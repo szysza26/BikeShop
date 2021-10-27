@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('css/contact.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6 contact-col">
+            <div class="contact-cell bg-light">
+                <h3 class="contact-header">Contact:</h3>
+                <p><i class="inline-icon material-icons">storefront</i> <b>Bike Shop</b></p>
+                <p><i class="inline-icon material-icons">home</i> street address</p>
+                <p><i class="inline-icon material-icons">phone</i> +48 999 999 999</p>
+                <p><i class="inline-icon material-icons">email</i> bikeshop@bikeshop.com</p>
+            </div>
+        </div>
+        <div class="col-md-6 contact-col">
+            <div class="contact-cell" style="background-image: url({{ asset('image/bike-riding-gd5cd79bc7_1280.png') }})"></div>
+        </div>
+    </div>
+{% endblock %}
