@@ -19,13 +19,25 @@ class NewsPageController extends AbstractController
     }
 
     /**
-     * @Route("/news/page", name="news_page")
+     * @Route("/news", name="news_page_list")
      */
     public function index(): Response
     {
         $news = $this->newsService->getAllNews();
 
         return $this->render('news/index.html.twig', [
+            'news' => $news
+        ]);
+    }
+
+    /**
+     * @Route("/news/{id}", name="news_page_details")
+     */
+    public function show(int $id): Response
+    {
+        $news = $this->newsService->getNewsById($id);
+
+        return $this->render('news/show.html.twig', [
             'news' => $news
         ]);
     }

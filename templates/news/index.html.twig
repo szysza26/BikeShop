@@ -1,9 +1,17 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link href="{{ asset('css/news.css') }}" rel="stylesheet"/>
+{% endblock %}
+
 {% block body %}
-    <ul>
+    <div class="news-list">
         {% for article in news %}
-            <li>{{ article.title }}</li>
+            <div class="news-item">
+                <h4>{{ article.title }}</h4>
+                <p>{{ article.description }}</p>
+                <a class="btn btn-light btn-sm" href="{{ path('news_page_details', {id: article.id}) }}">More</a>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 {% endblock %}

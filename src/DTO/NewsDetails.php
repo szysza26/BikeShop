@@ -6,7 +6,7 @@ namespace App\DTO;
 
 use App\Entity\News;
 
-class NewsInList
+class NewsDetails
 {
     private $id;
     private $title;
