@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\DTO\GetNewsListRequest;
+use App\DTO\Paginate;
 use App\Entity\News;
 use App\DTO\NewsDetails;
 use App\DTO\NewsInList;
@@ -30,14 +32,30 @@ class NewsService
         return $news_dto;
     }
 
-    public function getAllNews(): array
+    public function getAllNews(GetNewsListRequest $request): array
     {
-        $news = $this->newsRepository->findAll();
+        $filters = [
+            "offset" => ($request->getPage() - 1) * $request->getCount(),
+            "count" => $request->getCount()
+        ];
+
+        $news = $this->newsRepository->findByFilters($filters);
 
         $news_dto = array_map(function(News $news){
             return new NewsInList($news);
         }, $news);
 
-        return $news_dto;
+        $totalCount = $this->newsRepository->countNews();
+
+        $news_paginate = new Paginate(
+            $request->getPage(),
+            $request->getCount(),
+            (int)ceil($totalCount / $request->getCount())
+        );
+
+        return [
+            "news" => $news_dto,
+            "paginate" => $news_paginate
+        ];
     }
 }

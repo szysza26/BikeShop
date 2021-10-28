@@ -19,32 +19,31 @@ class NewsRepository extends ServiceEntityRepository
         parent::__construct($registry, News::class);
     }
 
-    // /**
-    //  * @return News[] Returns an array of News objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByFilters(array $filters): array
     {
-        return $this->createQueryBuilder('n')
-            ->andWhere('n.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('n.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('n');
 
-    /*
-    public function findOneBySomeField($value): ?News
-    {
-        return $this->createQueryBuilder('n')
-            ->andWhere('n.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if(array_key_exists('offset', $filters) && $filters['offset']){
+            $qb->setFirstResult($filters['offset']);
+        }
+
+        if(array_key_exists('count', $filters) && $filters['count']){
+            $qb->setMaxResults($filters['count']);
+        }
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
     }
-    */
+
+    public function countNews(): int
+    {
+        $qb = $this->createQueryBuilder('n')
+            ->select('count(n.id)')
+            ->groupBy('n.id');
+
+        $query = $qb->getQuery();
+
+        return count($query->execute());
+    }
 }

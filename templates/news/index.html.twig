@@ -21,4 +21,5 @@
             </div>
         {% endfor %}
     </div>
+    {% include 'nav/pagination.html.twig' with {'paginate': paginate, 'path': 'news_page_list'} %}
 {% endblock %}

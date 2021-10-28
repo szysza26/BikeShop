@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\DTO\GetNewsListRequest;
 use App\Service\NewsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,12 +22,13 @@ class NewsPageController extends AbstractController
     /**
      * @Route("/news", name="news_page_list")
      */
-    public function index(): Response
+    public function index(GetNewsListRequest $request): Response
     {
-        $news = $this->newsService->getAllNews();
+        $data = $this->newsService->getAllNews($request);
 
         return $this->render('news/index.html.twig', [
-            'news' => $news
+            'news' => $data["news"],
+            'paginate' => $data["paginate"]
         ]);
     }
 
