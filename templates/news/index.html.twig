@@ -10,7 +10,14 @@
             <div class="news-item">
                 <h4>{{ article.title }}</h4>
                 <p>{{ article.description }}</p>
-                <a class="btn btn-light btn-sm" href="{{ path('news_page_details', {id: article.id}) }}">More</a>
+                <div class="row">
+                    <div class="col-sm">
+                        <a class="btn btn-primary btn-sm" href="{{ path('news_page_details', {id: article.id}) }}">More</a>
+                    </div>
+                    <div class="col-sm">
+                        <span class="float-right">created: {{ article.createdAt.format("Y-m-d H-i-s") }}</span>
+                    </div>
+                </div>
             </div>
         {% endfor %}
     </div>

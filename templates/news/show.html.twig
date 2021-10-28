@@ -7,9 +7,17 @@
 {% block body %}
     <div class="card news-card">
         <div class="card-body">
-            <h5 class="card-title">{{ news.title }}</h5>
-            <p class="card-text">{{ news.description }}</p>
-            <a class="btn btn-light btn-sm" href="{{ path("news_page_list") }}">Back</a>
+            <a class="btn btn-primary btn-sm mb-4" href="{{ path("news_page_list") }}">Back</a>
+            <h3 class="card-title">{{ news.title }}</h3>
+            <p class="card-text">{{ news.content | raw }}</p>
+            <div class="row mt-4">
+                <div class="col-sm">
+                    <span class="float-left">created: {{ news.createdAt.format("Y-m-d H-i-s") }}</span>
+                </div>
+                <div class="col-sm">
+                    <span class="float-right">modified: {{ news.modifiedAt.format("Y-m-d H-i-s") }}</span>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

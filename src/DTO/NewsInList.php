@@ -11,12 +11,14 @@ class NewsInList
     private $id;
     private $title;
     private $description;
+    private $createdAt;
 
     public function __construct(News $news)
     {
         $this->id = $news->getId();
         $this->title = $news->getTitle();
         $this->description = $news->getDescription();
+        $this->createdAt = $news->getCreatedAt();
     }
 
     public function getId(): int
@@ -32,5 +34,10 @@ class NewsInList
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
     }
 }

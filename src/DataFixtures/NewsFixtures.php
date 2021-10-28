@@ -13,20 +13,19 @@ class NewsFixtures extends Fixture
     {
         $faker = Factory::create();
 
-        $news1 = new News();
-        $news1->setTitle($faker->words(3, true));
-        $news1->setDescription($faker->words(15, true));
-        $manager->persist($news1);
+        for($i = 0; $i < 12; $i++) {
+            $news = new News();
+            $news->setTitle($faker->words(3, true));
+            $news->setDescription($faker->words(15, true));
 
-        $news2 = new News();
-        $news2->setTitle($faker->words(3, true));
-        $news2->setDescription($faker->words(15, true));
-        $manager->persist($news2);
+            $content = "";
+            foreach($faker->paragraphs() as $p){
+                $content = $content . "<p>" . $p . "</p>";
+            }
+            $news->setContent($content);
 
-        $news3 = new News();
-        $news3->setTitle($faker->words(3, true));
-        $news3->setDescription($faker->words(15, true));
-        $manager->persist($news3);
+            $manager->persist($news);
+        }
 
         $manager->flush();
     }
