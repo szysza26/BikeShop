@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('css/bike.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+    <div class="card bike-card">
+        <div class="card-body">
+            <a class="btn btn-primary btn-sm mb-4" href="{{ path("bikes_page_list") }}">Back</a>
+            <h3 class="card-title">{{ bike.name }}</h3>
+            <p clas`s="card-text">{{ bike.description }}</p>
+        </div>
+    </div>
+{% endblock %}

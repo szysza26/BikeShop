@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\DTO\GetNewsListRequest;
-use App\DTO\Paginate;
 use App\Entity\News;
-use App\DTO\NewsDetails;
-use App\DTO\NewsInList;
+use App\DTO\Paginate;
+use App\DTO\News\GetNewsListRequest;
+use App\DTO\News\NewsDetails;
+use App\DTO\News\NewsInList;
 use App\Repository\NewsRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

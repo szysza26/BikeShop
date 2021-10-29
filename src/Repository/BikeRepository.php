@@ -19,32 +19,45 @@ class BikeRepository extends ServiceEntityRepository
         parent::__construct($registry, Bike::class);
     }
 
-    // /**
-    //  * @return Bike[] Returns an array of Bike objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByFilters(array $filters): array
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('b')
+            ->addSelect('c')
+            ->join('b.category', 'c')
+            ->groupBy('b.id');
 
-    /*
-    public function findOneBySomeField($value): ?Bike
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if(array_key_exists('offset', $filters) && $filters['offset']){
+            $qb->setFirstResult($filters['offset']);
+        }
+
+        if(array_key_exists('count', $filters) && $filters['count']){
+            $qb->setMaxResults($filters['count']);
+        }
+
+        if(array_key_exists('category', $filters) && $filters['category']){
+            $qb->andWhere('c.name = :category')
+                ->setParameter('category', $filters['category']);
+        }
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
     }
-    */
+
+    public function countByFilters(array $filters): int
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->select('count(b.id)')
+            ->join('b.category', 'c')
+            ->groupBy('b.id');
+
+        if(array_key_exists('category', $filters) && $filters['category']){
+            $qb->andWhere('c.name = :category')
+                ->setParameter('category', $filters['category']);
+        }
+
+        $query = $qb->getQuery();
+
+        return count($query->execute());
+    }
 }
