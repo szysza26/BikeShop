@@ -1,17 +1,17 @@
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
-        <li class="page-item {% if paginate.page == 1 %}disabled{% endif %}"><a class="page-link" href="{{ path(path, {page: paginate.page - 1, count: paginate.count}) }}">Previous</a></li>
+        <li class="page-item {% if paginate.page == 1 %}disabled{% endif %}"><a class="page-link" href="{{ path(path, {page: paginate.page - 1, count: paginate.count}|merge(params) ) }}">Previous</a></li>
         {% if paginate.page > 3 %}
-            <li class="page-item"><a class="page-link" href="{{ path(path, {page: 1, count: paginate.count}) }}">1</a></li>
+            <li class="page-item"><a class="page-link" href="{{ path(path, {page: 1, count: paginate.count}|merge(params)) }}">1</a></li>
         {% endif %}
         {% for i in range(paginate.page - 2, paginate.page + 2) %}
             {% if i >= 1 and i <= paginate.totalPages %}
-                <li class="page-item {% if paginate.page == i %}active{% endif %}"><a class="page-link" href="{{ path(path, {page: i, count: paginate.count}) }}">{{ i }}</a></li>
+                <li class="page-item {% if paginate.page == i %}active{% endif %}"><a class="page-link" href="{{ path(path, {page: i, count: paginate.count}|merge(params)) }}">{{ i }}</a></li>
             {% endif %}
         {% endfor %}
         {% if paginate.totalPages > paginate.page + 2 %}
-            <li class="page-item"><a class="page-link" href="{{ path(path, {page: paginate.totalPages, count: paginate.count}) }}">{{ paginate.totalPages }}</a></li>
+            <li class="page-item"><a class="page-link" href="{{ path(path, {page: paginate.totalPages, count: paginate.count}|merge(params)) }}">{{ paginate.totalPages }}</a></li>
         {% endif %}
-        <li class="page-item {% if paginate.page == paginate.totalPages %}disabled{% endif %}"><a class="page-link" href="{{ path(path, {page: paginate.page + 1, count: paginate.count}) }}">Next</a></li>
+        <li class="page-item {% if paginate.page == paginate.totalPages %}disabled{% endif %}"><a class="page-link" href="{{ path(path, {page: paginate.page + 1, count: paginate.count}|merge(params)) }}">Next</a></li>
     </ul>
 </nav>

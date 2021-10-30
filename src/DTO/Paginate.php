@@ -14,7 +14,7 @@ class Paginate
     {
         $this->page = $page;
         $this->count = $count;
-        $this->totalPages = $totalPages;
+        $this->totalPages = $totalPages > 0 ? $totalPages : 1;
     }
 
     public function getPage(): int

@@ -5,13 +5,28 @@
 {% endblock %}
 
 {% block body %}
+    <select id="dynamic_select" class="custom-select custom-select-lg mb-3">
+        <option value="{{ path('bikes_page_list', {page: 1, count: paginate.count, category: null}) }}" {% if category == null %}selected{% endif %}>all</option>
+        {% for c in categories %}
+            <option value="{{ path('bikes_page_list', {page: 1, count: paginate.count, category: c}) }}" {% if c == category %}selected{% endif %}>{{ c }}</option>
+        {% endfor %}
+    </select>
     <div class="row bike-list">
         {% for bike in bikes %}
             <div class="col-sm-6 col-md-4 col-lg-3">
-                <h4>{{ bike.name }}</h4>
-                <a class="btn btn-primary btn-sm" href="{{ path('bikes_page_details', {id: bike.id}) }}">More</a>
+                <div class="card bike-card">
+                    <img src="{{ asset(bike.photo) }}" class="card-img-top" alt="bike">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ bike.name }}</h5>
+                        <a class="btn btn-primary btn-sm" href="{{ path('bikes_page_details', {id: bike.id}) }}">More</a>
+                    </div>
+                </div>
             </div>
         {% endfor %}
     </div>
-    {% include 'nav/pagination.html.twig' with {'paginate': paginate, 'path': 'bikes_page_list'} %}
+    {% include 'nav/pagination.html.twig' with {'paginate': paginate, 'path': 'bikes_page_list', 'params': {'category': category}} %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/bike.js') }}"></script>
 {% endblock %}

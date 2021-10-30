@@ -22,7 +22,7 @@ class BikesInList
         if(count($photos) > 0){
             $this->photo = $photos[0]->getPath();
         }else{
-            $this->photo = null;
+            $this->photo = "image/bike-riding-gd5cd79bc7_1280.png";
         }
     }
 

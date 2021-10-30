@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\DTO\Bike;
 
 use App\Entity\Bike;
+use App\Entity\BikePhoto;
 
 class BikeDetails
 {
@@ -21,7 +22,12 @@ class BikeDetails
         $this->id = $bike->getId();
         $this->name = $bike->getName();
         $this->description = $bike->getDescription();
-        $this->photos = $bike->getBikePhotos()->toArray();
+
+        $this->photos = array_map(function(BikePhoto $photo){
+            return $photo->getPath();
+        }, $bike->getBikePhotos()->toArray());
+        if(count($this->photos) == 0) $this->photos[] = "image/bike-riding-gd5cd79bc7_1280.png";
+
         $this->price = $bike->getPrice();
         $this->count = $bike->getCount();
         $this->category = $bike->getCategory()->getName();

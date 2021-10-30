@@ -5,11 +5,42 @@
 {% endblock %}
 
 {% block body %}
-    <div class="card bike-card">
+    <div class="card bike-card-details">
         <div class="card-body">
-            <a class="btn btn-primary btn-sm mb-4" href="{{ path("bikes_page_list") }}">Back</a>
-            <h3 class="card-title">{{ bike.name }}</h3>
+            <a class="btn btn-primary btn-sm mb-4"
+                {% if app.request.headers.get('referer') %}
+                    href="{{ app.request.headers.get('referer') }}
+                {% else %}
+                    href="{{ path('bikes_page_list') }}
+                {% endif %}
+            ">Back</a>
+            <h3 class="card-title mb-4">{{ bike.name }}</h3>
+            <h5 class="card-subtitle mb-2">Price: {{ bike.price }} PLN</h5>
+            <h5 class="card-subtitle mb-2">Category: {{ bike.category }}</h5>
+            <h5 class="card-subtitle mb-4">Available: {{ bike.count }}</h5>
             <p clas`s="card-text">{{ bike.description }}</p>
+            <div id="carouselExampleIndicators" class="carousel slide bike-carousel" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    {% for index, photo in bike.photos %}
+                        <li data-target="#carouselExampleIndicators" data-slide-to="{{ index }}" {% if index == 0 %}class="active"{% endif %}></li>
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                    {% for index, photo in bike.photos %}
+                        <div class="carousel-item {% if index == 0 %}active{% endif %}">
+                            <img src="{{ asset(photo) }}" class="d-block w-100" alt="bike">
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </button>
+            </div>
         </div>
     </div>
 {% endblock %}

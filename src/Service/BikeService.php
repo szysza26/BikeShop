@@ -45,7 +45,8 @@ class BikeService
 
         return [
             "bikes" => $bikes_dto,
-            "paginate" => $bikes_paginate
+            "paginate" => $bikes_paginate,
+            "category" => $request->getCategory()
         ];
     }
 

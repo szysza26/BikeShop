@@ -9,6 +9,12 @@
 }
 
 .news-card {
-    margin-top: 25px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     width: 100%;
+}
+
+.news-carousel {
+    width: 80%;
+    margin: auto;
 }

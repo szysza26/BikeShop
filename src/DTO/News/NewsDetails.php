@@ -21,9 +21,11 @@ class NewsDetails
         $this->id = $news->getId();
         $this->title = $news->getTitle();
         $this->content = stream_get_contents($news->getContent());
+
         $this->photos = array_map(function(NewsPhoto $photo){
             return $photo->getPath();
         }, $news->getNewsPhotos()->toArray());
+
         $this->createdAt = $news->getCreatedAt();
         $this->modifiedAt = $news->getModifiedAt();
     }

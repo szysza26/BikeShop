@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Bike;
+use App\Entity\BikePhoto;
 use App\Entity\Category;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -38,6 +39,12 @@ class BikeFixtures extends Fixture
             if($i % 3 == 0) $bike->setCategory($category3);
             elseif ($i % 2 == 0) $bike->setCategory($category2);
             else $bike->setCategory($category1);
+
+            for($j = 0; $j < 3; $j++){
+                $photo = new BikePhoto();
+                $photo->setPath("image/bike-riding-gd5cd79bc7_1280.png");
+                $bike->addBikePhoto($photo);
+            }
 
             $manager->persist($bike);
         }

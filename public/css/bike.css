@@ -1,8 +1,25 @@
 .bike-list {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .bike-card {
-    margin-top: 25px;
     width: 100%;
+    height: calc(100% - 30px);
+    margin-bottom: 30px;
+}
+
+.bike-card-details {
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.bike-carousel {
+    width: 80%;
+    margin: auto;
+}
+
+.custom-select {
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
