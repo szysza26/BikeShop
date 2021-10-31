@@ -7,3 +7,14 @@ $(function(){
         return false;
     });
 });
+
+const setCartItem = (url, bikeId, quantity) => {
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({bikeId: bikeId, quantity: quantity})
+    });
+}

@@ -18,6 +18,9 @@
             <h5 class="card-subtitle mb-2">Price: {{ bike.price }} PLN</h5>
             <h5 class="card-subtitle mb-2">Category: {{ bike.category }}</h5>
             <h5 class="card-subtitle mb-4">Available: {{ bike.count }}</h5>
+            <button class="btn btn-primary" onclick="setCartItem('{{ path('cart_set') }}', {{ bike.id }}, 1)">
+                Add to cart
+            </button>
             <p clas`s="card-text">{{ bike.description }}</p>
             <div id="carouselExampleIndicators" class="carousel slide bike-carousel" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -43,4 +46,8 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/bike.js') }}"></script>
 {% endblock %}

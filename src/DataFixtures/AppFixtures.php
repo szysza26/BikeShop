@@ -28,7 +28,7 @@ class AppFixtures extends Fixture
         $admin->setEmail("admin@bikeshop.com");
         $admin->setRoles(["ROLE_ADMIN", "ROLE_USER"]);
         $admin->setPassword($this->passwordEncoder->encodePassword($admin,"admin"));
-        $manager->persist($user);
+        $manager->persist($admin);
 
         $manager->flush();
     }
