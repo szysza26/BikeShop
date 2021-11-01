@@ -27,10 +27,8 @@ class CartController extends AbstractController
     {
         $items = $this->cartService->getCartItems();
 
-        dd($items);
-
         return $this->render('cart/index.html.twig', [
-            'controller_name' => 'CartController',
+            'items' => $items,
         ]);
     }
 
@@ -47,6 +45,8 @@ class CartController extends AbstractController
 
         $this->cartService->setCartItem($form->getData());
 
-        return new JsonResponse(["message" => "ok"], Response::HTTP_OK);
+        $items = $this->cartService->getCartItems();
+
+        return new JsonResponse($items, Response::HTTP_OK);
     }
 }

@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\DTO\Cart;
 
 use App\Entity\CartItem;
+use JsonSerializable;
 
-class CartItemInList
+class CartItemInList implements JsonSerializable
 {
     private $bikeId;
     private $bikeName;
@@ -39,5 +40,15 @@ class CartItemInList
     public function getQuantity(): int
     {
         return $this->quantity;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            "bikeId" => $this->bikeId,
+            "bikeName" => $this->bikeName,
+            "bikePrice" => $this->bikePrice,
+            "quantity" => $this->quantity
+        ];
     }
 }

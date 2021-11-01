@@ -49,17 +49,16 @@ class CartService
         $cartItem = $this->cartItemRepository->findByUserIdAndBikeId($user->getId(), $request->getBikeId());
 
         if($cartItem){
-            if($request->getQuantity() <= 0){
+            if($request->getQuantity() <= 0 || $cartItem->getBike()->getCount() <= 0){
                 $this->cartItemRepository->remove($cartItem);
                 return;
             }
 
-            $cartItem->setQuantity($request->getQuantity());
+            $cartItem->setQuantity(min($request->getQuantity(), $cartItem->getBike()->getCount()));
         }else{
             if($request->getQuantity() <= 0) return;
 
             $cartItem = new CartItem();
-            $cartItem->setQuantity($request->getQuantity());
             $cartItem->setUser($user);
 
             $bike = $this->bikeRepository->find($request->getBikeId());
@@ -67,6 +66,8 @@ class CartService
             if(!$bike) throw new NotAcceptableHttpException();
 
             $cartItem->setBike($bike);
+
+            $cartItem->setQuantity(min($request->getQuantity(), $bike->getCount()));
         }
 
         $this->cartItemRepository->save($cartItem);

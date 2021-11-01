@@ -16,11 +16,19 @@
             ">Back</a>
             <h3 class="card-title mb-4">{{ bike.name }}</h3>
             <h5 class="card-subtitle mb-2">Price: {{ bike.price }} PLN</h5>
-            <h5 class="card-subtitle mb-2">Category: {{ bike.category }}</h5>
-            <h5 class="card-subtitle mb-4">Available: {{ bike.count }}</h5>
-            <button class="btn btn-primary" onclick="setCartItem('{{ path('cart_set') }}', {{ bike.id }}, 1)">
-                Add to cart
-            </button>
+            <h5 class="card-subtitle mb-4">Category: {{ bike.category }}</h5>
+            {% if bike.count > 0 %}
+                <h5 class="card-subtitle mb-2">Available: {{ bike.count }}</h5>
+                <button
+                    class="btn btn-primary mb-4"
+                    onclick="setCartItem('{{ path('cart_set') }}', {{ bike.id }}, 1)"
+                    {% if not app.user %}disabled title="Login to add to cart."{% endif %}
+                >
+                    Add to cart
+                </button>
+            {% else %}
+                <h5 class="card-subtitle mb-4">Unavailable</h5>
+            {% endif %}
             <p clas`s="card-text">{{ bike.description }}</p>
             <div id="carouselExampleIndicators" class="carousel slide bike-carousel" data-ride="carousel">
                 <ol class="carousel-indicators">
